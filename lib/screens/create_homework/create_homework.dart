@@ -1,5 +1,4 @@
 import 'package:alisood/models/ModelProvider.dart';
-import 'package:alisood/models/Todo.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 class CreateHomework extends StatefulWidget {

@@ -26,19 +26,19 @@ import 'package:flutter/foundation.dart';
 @immutable
 class Todo extends Model {
   static const classType = const _TodoModelType();
-  final String id;
-  final String name;
-  final String description;
-  final bool isComplete;
-  final TemporalDateTime createdAt;
-  final TemporalDateTime updatedAt;
+  final String? id;
+  final String? name;
+  final String? description;
+  final bool? isComplete;
+  final TemporalDateTime? createdAt;
+  final TemporalDateTime? updatedAt;
 
   @override
   getInstanceType() => classType;
 
   @override
   String getId() {
-    return id;
+    return id!;
   }
 
   const Todo._internal(
@@ -50,10 +50,10 @@ class Todo extends Model {
       this.updatedAt});
 
   factory Todo(
-      {String id,
-      @required String name,
-      String description,
-      @required bool isComplete}) {
+      {String? id,
+      @required String? name,
+      String? description,
+      @required bool? isComplete}) {
     return Todo._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
@@ -90,16 +90,16 @@ class Todo extends Model {
         (isComplete != null ? isComplete.toString() : "null") +
         ", ");
     buffer.write("createdAt=" +
-        (createdAt != null ? createdAt.format() : "null") +
+        (createdAt != null ? createdAt!.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (updatedAt != null ? updatedAt.format() : "null"));
+        "updatedAt=" + (updatedAt != null ? updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  Todo copyWith({String id, String name, String description, bool isComplete}) {
+  Todo copyWith({String? id, String? name, String? description, bool? isComplete}) {
     return Todo._internal(
         id: id ?? this.id,
         name: name ?? this.name,
