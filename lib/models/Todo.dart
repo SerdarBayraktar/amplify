@@ -22,185 +22,164 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-
 /** This is an auto generated class representing the Todo type in your schema. */
 @immutable
 class Todo extends Model {
   static const classType = const _TodoModelType();
   final String id;
-  final String? _name;
-  final String? _description;
-  final bool? _isComplete;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
+  final String name;
+  final String description;
+  final bool isComplete;
+  final TemporalDateTime createdAt;
+  final TemporalDateTime updatedAt;
 
   @override
   getInstanceType() => classType;
-  
+
   @override
   String getId() {
     return id;
   }
-  
-  String get name {
-    try {
-      return _name!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
-  }
-  
-  String? get description {
-    return _description;
-  }
-  
-  bool get isComplete {
-    try {
-      return _isComplete!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
-  }
-  
-  TemporalDateTime? get createdAt {
-    return _createdAt;
-  }
-  
-  TemporalDateTime? get updatedAt {
-    return _updatedAt;
-  }
-  
-  const Todo._internal({required this.id, required name, description, required isComplete, createdAt, updatedAt}): _name = name, _description = description, _isComplete = isComplete, _createdAt = createdAt, _updatedAt = updatedAt;
-  
-  factory Todo({String? id, required String name, String? description, required bool isComplete}) {
+
+  const Todo._internal(
+      {@required this.id,
+      @required this.name,
+      this.description,
+      @required this.isComplete,
+      this.createdAt,
+      this.updatedAt});
+
+  factory Todo(
+      {String id,
+      @required String name,
+      String description,
+      @required bool isComplete}) {
     return Todo._internal(
-      id: id == null ? UUID.getUUID() : id,
-      name: name,
-      description: description,
-      isComplete: isComplete);
+        id: id == null ? UUID.getUUID() : id,
+        name: name,
+        description: description,
+        isComplete: isComplete);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Todo &&
-      id == other.id &&
-      _name == other._name &&
-      _description == other._description &&
-      _isComplete == other._isComplete;
+        id == other.id &&
+        name == other.name &&
+        description == other.description &&
+        isComplete == other.isComplete;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
     var buffer = new StringBuffer();
-    
+
     buffer.write("Todo {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("name=" + "$_name" + ", ");
-    buffer.write("description=" + "$_description" + ", ");
-    buffer.write("isComplete=" + (_isComplete != null ? _isComplete!.toString() : "null") + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("name=" + "$name" + ", ");
+    buffer.write("description=" + "$description" + ", ");
+    buffer.write("isComplete=" +
+        (isComplete != null ? isComplete.toString() : "null") +
+        ", ");
+    buffer.write("createdAt=" +
+        (createdAt != null ? createdAt.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (updatedAt != null ? updatedAt.format() : "null"));
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
-  Todo copyWith({String? id, String? name, String? description, bool? isComplete}) {
+
+  Todo copyWith({String id, String name, String description, bool isComplete}) {
     return Todo._internal(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      description: description ?? this.description,
-      isComplete: isComplete ?? this.isComplete);
+        id: id ?? this.id,
+        name: name ?? this.name,
+        description: description ?? this.description,
+        isComplete: isComplete ?? this.isComplete);
   }
-  
-  Todo.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _name = json['name'],
-      _description = json['description'],
-      _isComplete = json['isComplete'],
-      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
-  
+
+  Todo.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        name = json['name'],
+        description = json['description'],
+        isComplete = json['isComplete'],
+        createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null;
+
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'description': _description, 'isComplete': _isComplete, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
-  };
+        'id': id,
+        'name': name,
+        'description': description,
+        'isComplete': isComplete,
+        'createdAt': createdAt?.format(),
+        'updatedAt': updatedAt?.format()
+      };
 
   static final QueryField ID = QueryField(fieldName: "todo.id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField DESCRIPTION = QueryField(fieldName: "description");
   static final QueryField ISCOMPLETE = QueryField(fieldName: "isComplete");
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Todo";
     modelSchemaDefinition.pluralName = "Todos";
-    
+
     modelSchemaDefinition.authRules = [
-      AuthRule(
-        authStrategy: AuthStrategy.PUBLIC,
-        operations: [
-          ModelOperation.CREATE,
-          ModelOperation.UPDATE,
-          ModelOperation.DELETE,
-          ModelOperation.READ
-        ])
+      AuthRule(authStrategy: AuthStrategy.PUBLIC, operations: [
+        ModelOperation.CREATE,
+        ModelOperation.UPDATE,
+        ModelOperation.DELETE,
+        ModelOperation.READ
+      ])
     ];
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Todo.NAME,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        key: Todo.NAME,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Todo.DESCRIPTION,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        key: Todo.DESCRIPTION,
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Todo.ISCOMPLETE,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.bool)
-    ));
-    
+        key: Todo.ISCOMPLETE,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.bool)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
   });
 }
 
 class _TodoModelType extends ModelType<Todo> {
   const _TodoModelType();
-  
+
   @override
   Todo fromJson(Map<String, dynamic> jsonData) {
     return Todo.fromJson(jsonData);
