@@ -183,8 +183,8 @@ class Homework extends Model {
         'startDateTime': startDateTime,
         'teacherNote': teacherNote,
         'isFinished': isFinished,
-        'createdAt': createdAt.format(),
-        'updatedAt': updatedAt.format()
+        'createdAt': createdAt?.format(),
+        'updatedAt': updatedAt?.format()
       };
 
   static final QueryField ID = QueryField(fieldName: "homework.id");

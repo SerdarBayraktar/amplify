@@ -1,28 +1,43 @@
+import 'package:alisood/models/ModelProvider.dart';
 import 'package:alisood/models/Todo.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-class AddTodoForm extends StatefulWidget {
+class CreateHomework extends StatefulWidget {
   @override
-  _AddTodoFormState createState() => _AddTodoFormState();
+  _CreateHomeworkState createState() => _CreateHomeworkState();
 }
 
-class _AddTodoFormState extends State<AddTodoForm> {
-  final _nameController = TextEditingController();
-  final _descriptionController = TextEditingController();
+class _CreateHomeworkState extends State<CreateHomework> {
+  final _bookController = TextEditingController();
+  final _teacherController = TextEditingController();
+  final _startpageController = TextEditingController();
+  final _endpageController = TextEditingController();
+  final _timeController = TextEditingController();
+  final _teacherNoteController = TextEditingController();
 
-  Future<void> _saveTodo() async {
-    String name = _nameController.text;
-    String description = _descriptionController.text;
-    Todo newTodo = Todo(
-        name: name,
-        description: description,
-        isComplete: false);
+  Future<void> _saveHomework() async {
+    String book = _bookController.text;
+    String teacher = _teacherController.text;
+    int startPage = int.parse(_startpageController.text.toString());
+    int endPage = int.parse(_endpageController.text.toString());
+    int time = int.parse(_timeController.text.toString());
+    String teacherNote = _teacherNoteController.text;
+    Homework homework = Homework(
+        book: book,
+        teacher: teacher,
+        time: time,
+        pageStart:  startPage,
+        pageEnd: endPage,
+        startDateTime: DateTime.now().millisecondsSinceEpoch,
+        teacherNote: teacherNote,
+        isFinished: false,
+    );
 
     try {
-      await Amplify.DataStore.save(newTodo);
+      await Amplify.DataStore.save(homework);
       Navigator.of(context).pop();
     } catch (e) {
-      print('An error occurred while saving Todo: $e');
+      print('An error occurred while saving Homework: $e');
     }
   }
 
@@ -30,7 +45,7 @@ class _AddTodoFormState extends State<AddTodoForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Todo'),
+        title: Text('Assing Homework'),
       ),
       body: Container(
         padding: EdgeInsets.all(8.0),
@@ -39,13 +54,13 @@ class _AddTodoFormState extends State<AddTodoForm> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextFormField(
-                  controller: _nameController,
+                  controller: _bookController,
                   decoration: InputDecoration(filled: true, labelText: 'Name')),
               TextFormField(
-                  controller: _descriptionController,
+                  controller: _teacherController,
                   decoration:
                   InputDecoration(filled: true, labelText: 'Description')),
-              ElevatedButton(onPressed: _saveTodo, child: Text('Save'))
+              ElevatedButton(onPressed: _saveHomework, child: Text('Save'))
             ],
           ),
         ),
