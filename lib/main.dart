@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => ContentProvider(),
       child: MaterialApp(
-        title: 'Amplified Todo',
+        title: 'Homeworks',
         home: HomeworksPage(),
       ),
     );

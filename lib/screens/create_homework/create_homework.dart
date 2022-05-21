@@ -8,7 +8,6 @@ class CreateHomework extends StatefulWidget {
 
 class _CreateHomeworkState extends State<CreateHomework> {
   final _bookController = TextEditingController();
-  final _teacherController = TextEditingController();
   final _startpageController = TextEditingController();
   final _endpageController = TextEditingController();
   final _timeController = TextEditingController();
@@ -16,14 +15,13 @@ class _CreateHomeworkState extends State<CreateHomework> {
 
   Future<void> _saveHomework() async {
     String book = _bookController.text;
-    String teacher = _teacherController.text;
     int startPage = int.parse(_startpageController.text.toString());
     int endPage = int.parse(_endpageController.text.toString());
     int time = int.parse(_timeController.text.toString());
     String teacherNote = _teacherNoteController.text;
     Homework homework = Homework(
         book: book,
-        teacher: teacher,
+        teacher: 'Serdar',
         time: time,
         pageStart:  startPage,
         pageEnd: endPage,
@@ -54,15 +52,26 @@ class _CreateHomeworkState extends State<CreateHomework> {
             children: [
               TextFormField(
                   controller: _bookController,
-                  decoration: InputDecoration(filled: true, labelText: 'Name')),
+                  decoration: InputDecoration(filled: true, labelText: 'Book Name')),
               TextFormField(
-                  controller: _teacherController,
-                  decoration:
-                  InputDecoration(filled: true, labelText: 'Description')),
-              ElevatedButton(onPressed: _saveHomework, child: Text('Save'))
+                  controller: _timeController,
+                  decoration: InputDecoration(filled: true, labelText: 'Homework time in days')),
+              TextFormField(
+                  controller: _startpageController,
+                  decoration: InputDecoration(filled: true, labelText: 'Which page does homework start?')),
+              TextFormField(
+                  controller: _endpageController,
+                  decoration: InputDecoration(filled: true, labelText: 'Which page does homework end?')),
+              TextFormField(
+                  controller: _teacherNoteController,
+                  decoration: InputDecoration(filled: true, labelText: 'Do you want to mention anything else')),
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.send),
+        onPressed: _saveHomework,
       ),
     );
   }
