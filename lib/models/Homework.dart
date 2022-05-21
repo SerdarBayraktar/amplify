@@ -26,24 +26,24 @@ import 'package:flutter/foundation.dart';
 @immutable
 class Homework extends Model {
   static const classType = const _HomeworkModelType();
-  final String id;
-  final String book;
-  final String teacher;
-  final int time;
-  final int pageStart;
-  final int pageEnd;
-  final int startDateTime;
-  final String teacherNote;
-  final bool isFinished;
-  final TemporalDateTime createdAt;
-  final TemporalDateTime updatedAt;
+  final String? id;
+  final String? book;
+  final String? teacher;
+  final int? time;
+  final int? pageStart;
+  final int? pageEnd;
+  final int? startDateTime;
+  final String? teacherNote;
+  final bool? isFinished;
+  final TemporalDateTime? createdAt;
+  final TemporalDateTime? updatedAt;
 
   @override
   getInstanceType() => classType;
 
   @override
   String getId() {
-    return id;
+    return id!;
   }
 
   const Homework._internal(
@@ -60,15 +60,15 @@ class Homework extends Model {
       this.updatedAt});
 
   factory Homework(
-      {String id,
-      @required String book,
-      @required String teacher,
-      @required int time,
-      @required int pageStart,
-      @required int pageEnd,
-      @required int startDateTime,
-      String teacherNote,
-      bool isFinished}) {
+      {String? id,
+      @required String? book,
+      @required String? teacher,
+      @required int? time,
+      @required int? pageStart,
+      @required int? pageEnd,
+      @required int? startDateTime,
+        String? teacherNote,
+      bool? isFinished}) {
     return Homework._internal(
         id: id == null ? UUID.getUUID() : id,
         book: book,
@@ -125,25 +125,25 @@ class Homework extends Model {
         (isFinished != null ? isFinished.toString() : "null") +
         ", ");
     buffer.write("createdAt=" +
-        (createdAt != null ? createdAt.format() : "null") +
+        (createdAt != null ? createdAt!.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (updatedAt != null ? updatedAt.format() : "null"));
+        "updatedAt=" + (updatedAt != null ? updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
   Homework copyWith(
-      {String id,
-      String book,
-      String teacher,
-      int time,
-      int pageStart,
-      int pageEnd,
-      int startDateTime,
-      String teacherNote,
-      bool isFinished}) {
+      {String? id,
+        String? book,
+        String? teacher,
+        int? time,
+        int? pageStart,
+        int? pageEnd,
+        int? startDateTime,
+        String? teacherNote,
+      bool? isFinished}) {
     return Homework._internal(
         id: id ?? this.id,
         book: book ?? this.book,

@@ -32,7 +32,7 @@ class HomeworkWidget extends StatelessWidget {
   }
 
   Future<void> _toggleIsComplete() async {
-    Homework updatedHomework = homework.copyWith(isFinished: !homework.isFinished);
+    Homework updatedHomework = homework.copyWith(isFinished: !homework.isFinished!);
     try {
       await Amplify.DataStore.save(updatedHomework);
     } catch (e) {
@@ -57,15 +57,15 @@ class HomeworkWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(homework.book,
+                  Text(homework.book!,
                       style:
                       TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  Text(homework.teacher),
+                  Text(homework.teacher!),
                 ],
               ),
             ),
             Icon(
-                homework.isFinished
+                homework.isFinished!
                     ? Icons.check_box
                     : Icons.check_box_outline_blank,
                 size: iconSize),
