@@ -21,16 +21,14 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'Homework.dart';
-import 'Todo.dart';
 
 export 'Homework.dart';
-export 'Todo.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "80b0e36006ace16831693ca7a6473423";
+  String version = "fe75b4d19b6da2e0b6d21d919acbd745";
   @override
-  List<ModelSchema> modelSchemas = [Homework.schema, Todo.schema];
+  List<ModelSchema> modelSchemas = [Homework.schema];
   static final ModelProvider _instance = ModelProvider();
   @override
   List<ModelSchema> customTypeSchemas = [];
@@ -41,8 +39,6 @@ class ModelProvider implements ModelProviderInterface {
     switch (modelName) {
       case "Homework":
         return Homework.classType;
-      case "Todo":
-        return Todo.classType;
       default:
         throw Exception(
             "Failed to find model in model provider for model name: " +

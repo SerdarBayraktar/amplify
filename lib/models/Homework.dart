@@ -26,24 +26,24 @@ import 'package:flutter/foundation.dart';
 @immutable
 class Homework extends Model {
   static const classType = const _HomeworkModelType();
-  final String? id;
-  final String? book;
-  final String? teacher;
-  final int? time;
-  final int? pageStart;
-  final int? pageEnd;
-  final int? startDateTime;
-  final String? teacherNote;
-  final bool? isFinished;
-  final TemporalDateTime? createdAt;
-  final TemporalDateTime? updatedAt;
+  final String id;
+  final String book;
+  final String teacher;
+  final int time;
+  final int pageStart;
+  final int pageEnd;
+  final int startDateTime;
+  final bool isFinished;
+  final String teacherNote;
+  final TemporalDateTime createdAt;
+  final TemporalDateTime updatedAt;
 
   @override
   getInstanceType() => classType;
 
   @override
   String getId() {
-    return id!;
+    return id;
   }
 
   const Homework._internal(
@@ -54,21 +54,21 @@ class Homework extends Model {
       @required this.pageStart,
       @required this.pageEnd,
       @required this.startDateTime,
-      this.teacherNote,
-      this.isFinished,
+      @required this.isFinished,
+      @required this.teacherNote,
       this.createdAt,
       this.updatedAt});
 
   factory Homework(
-      {String? id,
-      @required String? book,
-      @required String? teacher,
-      @required int? time,
-      @required int? pageStart,
-      @required int? pageEnd,
-      @required int? startDateTime,
-        String? teacherNote,
-      bool? isFinished}) {
+      {String id,
+      @required String book,
+      @required String teacher,
+      @required int time,
+      @required int pageStart,
+      @required int pageEnd,
+      @required int startDateTime,
+      @required bool isFinished,
+      @required String teacherNote}) {
     return Homework._internal(
         id: id == null ? UUID.getUUID() : id,
         book: book,
@@ -77,8 +77,8 @@ class Homework extends Model {
         pageStart: pageStart,
         pageEnd: pageEnd,
         startDateTime: startDateTime,
-        teacherNote: teacherNote,
-        isFinished: isFinished);
+        isFinished: isFinished,
+        teacherNote: teacherNote);
   }
 
   bool equals(Object other) {
@@ -96,8 +96,8 @@ class Homework extends Model {
         pageStart == other.pageStart &&
         pageEnd == other.pageEnd &&
         startDateTime == other.startDateTime &&
-        teacherNote == other.teacherNote &&
-        isFinished == other.isFinished;
+        isFinished == other.isFinished &&
+        teacherNote == other.teacherNote;
   }
 
   @override
@@ -120,30 +120,30 @@ class Homework extends Model {
     buffer.write("startDateTime=" +
         (startDateTime != null ? startDateTime.toString() : "null") +
         ", ");
-    buffer.write("teacherNote=" + "$teacherNote" + ", ");
     buffer.write("isFinished=" +
         (isFinished != null ? isFinished.toString() : "null") +
         ", ");
+    buffer.write("teacherNote=" + "$teacherNote" + ", ");
     buffer.write("createdAt=" +
-        (createdAt != null ? createdAt!.format() : "null") +
+        (createdAt != null ? createdAt.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (updatedAt != null ? updatedAt!.format() : "null"));
+        "updatedAt=" + (updatedAt != null ? updatedAt.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
   Homework copyWith(
-      {String? id,
-        String? book,
-        String? teacher,
-        int? time,
-        int? pageStart,
-        int? pageEnd,
-        int? startDateTime,
-        String? teacherNote,
-      bool? isFinished}) {
+      {String id,
+      String book,
+      String teacher,
+      int time,
+      int pageStart,
+      int pageEnd,
+      int startDateTime,
+      bool isFinished,
+      String teacherNote}) {
     return Homework._internal(
         id: id ?? this.id,
         book: book ?? this.book,
@@ -152,8 +152,8 @@ class Homework extends Model {
         pageStart: pageStart ?? this.pageStart,
         pageEnd: pageEnd ?? this.pageEnd,
         startDateTime: startDateTime ?? this.startDateTime,
-        teacherNote: teacherNote ?? this.teacherNote,
-        isFinished: isFinished ?? this.isFinished);
+        isFinished: isFinished ?? this.isFinished,
+        teacherNote: teacherNote ?? this.teacherNote);
   }
 
   Homework.fromJson(Map<String, dynamic> json)
@@ -164,8 +164,8 @@ class Homework extends Model {
         pageStart = (json['pageStart'] as num)?.toInt(),
         pageEnd = (json['pageEnd'] as num)?.toInt(),
         startDateTime = (json['startDateTime'] as num)?.toInt(),
-        teacherNote = json['teacherNote'],
         isFinished = json['isFinished'],
+        teacherNote = json['teacherNote'],
         createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -181,8 +181,8 @@ class Homework extends Model {
         'pageStart': pageStart,
         'pageEnd': pageEnd,
         'startDateTime': startDateTime,
-        'teacherNote': teacherNote,
         'isFinished': isFinished,
+        'teacherNote': teacherNote,
         'createdAt': createdAt?.format(),
         'updatedAt': updatedAt?.format()
       };
@@ -195,8 +195,8 @@ class Homework extends Model {
   static final QueryField PAGEEND = QueryField(fieldName: "pageEnd");
   static final QueryField STARTDATETIME =
       QueryField(fieldName: "startDateTime");
-  static final QueryField TEACHERNOTE = QueryField(fieldName: "teacherNote");
   static final QueryField ISFINISHED = QueryField(fieldName: "isFinished");
+  static final QueryField TEACHERNOTE = QueryField(fieldName: "teacherNote");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Homework";
@@ -244,14 +244,14 @@ class Homework extends Model {
         ofType: ModelFieldType(ModelFieldTypeEnum.int)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Homework.TEACHERNOTE,
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        key: Homework.ISFINISHED,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.bool)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Homework.ISFINISHED,
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.bool)));
+        key: Homework.TEACHERNOTE,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',

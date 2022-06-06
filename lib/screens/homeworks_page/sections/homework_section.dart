@@ -1,5 +1,6 @@
 import 'package:alisood/models/Homework.dart';
 import 'package:alisood/models/Homework.dart';
+import 'package:alisood/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 class HomeworkSection extends StatelessWidget {
@@ -25,7 +26,10 @@ class HomeworkWidget extends StatelessWidget {
 
   void _deleteHomework(BuildContext context) async {
     try {
-      await Amplify.DataStore.delete(homework);
+      final request = ModelMutations.update(homework);
+
+      await Amplify.API.mutate(request: request);
+      //await Amplify.DataStore.delete(homework);
     } catch (e) {
       print('An error occurred while deleting Homework: $e');
     }
